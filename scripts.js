@@ -39,6 +39,8 @@ function game() {
             console.log("Tie");
         } else if (playerWins(computerHand, playerHand)) {
             console.log("Player wins"); 
+        } else {
+            console.log("Computer wins");
         }
     }
 }

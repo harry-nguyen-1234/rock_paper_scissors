@@ -16,10 +16,8 @@ function computerPlay() {
     }
 }
 
-function playerSelection() {
-    let playerInput = prompt("Enter your option: ");
-    playerInput = playerInput.toLowerCase();
-    return playerInput;
+function playerSelection(button) {
+    return button.id;
 }
 
 function playerWins(computerHand, playerHand) {
@@ -30,17 +28,36 @@ function playerWins(computerHand, playerHand) {
     } else return false;
 }
 
-function game() {
-    for (let i = 0; i < 3; i++) {
-        let computerHand = computerPlay();
-        let playerHand = playerSelection();
-        console.log("Computer: " + computerHand + " You: " + playerHand);
-        if (computerHand == playerHand) {
-            console.log("Tie");
-        } else if (playerWins(computerHand, playerHand)) {
-            console.log("Player wins"); 
-        } else {
-            console.log("Computer wins");
-        }
+function playRound(button) {
+    let computerHand = computerPlay();
+    let playerHand = playerSelection(button);
+
+    let commentaryString = "Computer: " + computerHand + " You: " + playerHand 
+            + '\n';
+
+    console.log(commentaryString);
+
+    let resultString = "";
+    if (computerHand == playerHand) {
+        resultString = "Tie";
+    } else if (playerWins(computerHand, playerHand)) {
+        resultString = "Player wins";
+    } else {
+        resultString = "Computer wins";
     }
+    console.log(resultString);
+
+    const commentary = document.getElementById("commentary");
+    commentary.textContent = commentaryString;
+
+    const result = document.getElementById("result");
+    result.textContent = resultString;
 }
+
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playRound(button)
+    });
+});
